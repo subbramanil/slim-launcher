@@ -1,4 +1,4 @@
-# Slim Launcher
+# Slim Launcher [![CircleCI](https://circleci.com/gh/subbramanil/slim-launcher.svg?style=svg)](https://circleci.com/gh/subbramanil/slim-launcher)
 
 Android minimalistic launcher
 
@@ -22,6 +22,14 @@ I liked it so much but I couldn't do with just 3 apps as daily apps so tah-daaa 
 
 - Migrate to stable version of android studio for better contribution accessibility
 - Write all tests for the app
+
+### Future Features
+
+- List View with icons
+![Apps In List](https://s3-us-west-2.amazonaws.com/my-blogresources/screenshots/apps_in_list.png)
+
+- Grid view
+![Apps In Grid](https://s3-us-west-2.amazonaws.com/my-blogresources/screenshots/apps_in_grid.png)
 
 ### Contribute
 
