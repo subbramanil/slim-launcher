@@ -45,11 +45,17 @@ jobs:
             sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             sudo gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - run:
+          name: Configure environment
+          command: |
+            echo 'export APK_PATH=`find . -path "*.apk" ! -path "*unaligned.apk" ! -path "*Test*.apk" -print -quit`' >> $BASH_ENV
+            echo 'export TEST_APK_PATH=`find "." "-path" "*Test*.apk" -print -quit`' >> $BASH_ENV
+      - run:
           name: Test with Firebase Test Lab
           command: >
             sudo gcloud firebase test android run
-              --type instrumentation \
-              --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+              --type instrumentation
+              --app ${APK_PATH}
+              --test ${TEST_APK_PATH}
               --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
       - run:
           name: Install gsutil dependency and copy test results data
