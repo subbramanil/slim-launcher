@@ -4,7 +4,7 @@
 
 Android minimalistic launcher
 
-The project got inspired by LessPhone [LessPhone](https://play.google.com/store/apps/details?id=me.aswinmohan.nophone) by Aswin Mohan
+The project got inspired by [Slim Launcher](https://github.com/sduduzog/slim-launcher)
 
 
 ## New Features
