@@ -6,7 +6,9 @@ import android.content.Context.MODE_PRIVATE
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -186,16 +188,24 @@ class MainFragment : Fragment() {
     }
 
     private fun setEventListeners() {
-        clockTextView.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                val intent = Intent(android.provider.AlarmClock.ACTION_SHOW_ALARMS)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            }
-        }
-        bottomSheet.setOnClickListener {
+        setClockEventListener()
 
+        bottomSheet.setOnClickListener {
+            // dummy listener to listen to the touch and override the default behavior
         }
+
+        setBottomSheetCallback()
+
+        setHomeOptionsListeners()
+
+        setCallClickListener()
+
+        setCameraClickListener()
+
+        showHomeOptions()
+    }
+
+    private fun setBottomSheetCallback() {
         sheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(p0: View, p1: Float) {
                 val multi = 3 * p1
@@ -203,6 +213,8 @@ class MainFragment : Fragment() {
                 optionsView.cardElevation = p1 * 8
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     optionsView.elevation = p1 * 8
+                } else {
+                    // Not available Pre-Lollipop
                 }
             }
 
@@ -213,15 +225,35 @@ class MainFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setHomeOptionsListeners() {
         settingsText.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_openSettingsFragment))
         deviceSettingsText.setOnClickListener { openSettings() }
         rateAppText.setOnClickListener { rateApp() }
+        aboutText.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_openAboutFragment))
+        showLauncherChange()
+    }
+
+    private fun showHomeOptions() {
+        ivExpand.setOnClickListener {
+            if (sheetBehavior.state == STATE_COLLAPSED) {
+                sheetBehavior.state = STATE_HALF_EXPANDED
+            }
+        }
+    }
+
+    private fun showLauncherChange() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             changeLauncherText.setOnClickListener {
-                startActivity(Intent(android.provider.Settings.ACTION_HOME_SETTINGS))
+                startActivity(Intent(Settings.ACTION_HOME_SETTINGS))
             }
-        } else changeLauncherText.visibility = View.GONE
-        aboutText.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_openAboutFragment))
+        } else {
+            changeLauncherText.visibility = View.GONE
+        }
+    }
+
+    private fun setCallClickListener() {
         ivCall.setOnClickListener {
             try {
                 val intent = Intent(Intent.ACTION_DIAL)
@@ -234,6 +266,9 @@ class MainFragment : Fragment() {
                 Log.e(TAG, e.message)
             }
         }
+    }
+
+    private fun setCameraClickListener() {
         ivCamera.setOnClickListener {
             try {
                 val intent = Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
@@ -242,9 +277,17 @@ class MainFragment : Fragment() {
                 Log.e(TAG, e.message)
             }
         }
+    }
 
-        ivExpand.setOnClickListener {
-            if (sheetBehavior.state == STATE_COLLAPSED) sheetBehavior.state = STATE_HALF_EXPANDED
+    private fun setClockEventListener() {
+        clockTextView.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                val intent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            } else {
+                // Not required if the version is below kitkat
+            }
         }
     }
 }
