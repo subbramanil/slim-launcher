@@ -46,9 +46,6 @@ class MainFragment : Fragment() {
     @Suppress("PropertyName")
     val TAG: String = "MainFragment"
 
-    private val LIST_LAYOUT_TYPE = 1
-    private val GRID_LAYOUT_TYPE = 2
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
@@ -289,5 +286,10 @@ class MainFragment : Fragment() {
                 // Not required if the version is below kitkat
             }
         }
+    }
+
+    companion object {
+        private const val LIST_LAYOUT_TYPE = 1
+        private const val GRID_LAYOUT_TYPE = 2
     }
 }

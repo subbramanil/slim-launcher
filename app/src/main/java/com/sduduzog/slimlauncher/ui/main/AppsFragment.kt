@@ -38,7 +38,6 @@ class AppsFragment : Fragment() {
         })
         val pm = activity!!.packageManager
         val main = Intent(Intent.ACTION_MAIN, null)
-
         main.addCategory(Intent.CATEGORY_LAUNCHER)
 
         val launchables = pm.queryIntentActivities(main, 0)
