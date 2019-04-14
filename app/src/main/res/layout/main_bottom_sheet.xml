@@ -10,7 +10,6 @@
     app:behavior_peekHeight="60dp"
     tools:context=".MainActivity">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/optionsView"
         android:layout_width="match_parent"
@@ -126,7 +125,7 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_photo_camera" />
+            app:srcCompat="@android:drawable/sym_action_email" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

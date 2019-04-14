@@ -1,10 +1,10 @@
 package com.sduduzog.slimlauncher
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation.findNavController
@@ -52,9 +52,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        if (currentLabel != label)
+        if (currentLabel != label) {
             super.onBackPressed()
-        else onBackPressedListener?.onBackPressed()
+        } else {
+            onBackPressedListener?.onBackPressed()
+        }
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {

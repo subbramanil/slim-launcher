@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.sonarqube'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.sduduzog.slimlauncher"
         minSdkVersion 15
@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -26,6 +27,15 @@ android {
             minifyEnabled false
             applicationIdSuffix ".debug"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "subbramanil_slim-launcher"
+            property "sonar.organization", "subbramanil-github"
+            property "sonar.host.url", "https://sonarcloud.io"
+            property "sonar.login", "c9f476d439d5e1158ecf10871553d9787b732d3b"
         }
     }
 }
@@ -48,9 +58,9 @@ dependencies {
     // Arch Components
     implementation 'androidx.core:core-ktx:1.0.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-beta01'
-    implementation 'androidx.room:room-runtime:2.1.0-alpha04'
-    kapt "androidx.room:room-compiler:2.1.0-alpha04"
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha06'
+    kapt "androidx.room:room-compiler:2.1.0-alpha06"
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
     // 3rd Party libs
@@ -58,14 +68,14 @@ dependencies {
 
     // Test libs
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.19.0'
-    androidTestImplementation 'androidx.room:room-testing:2.1.0-alpha04'
+    testImplementation 'org.mockito:mockito-core:2.24.0'
+    androidTestImplementation 'androidx.room:room-testing:2.1.0-alpha06'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.1'
+    androidTestImplementation 'androidx.annotation:annotation:1.0.2'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.1"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }

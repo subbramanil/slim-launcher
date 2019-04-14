@@ -89,5 +89,6 @@
     <string name="no_app_selected_toast_msg">Choose at least one app</string>
     <string name="choose_apps_title">Choose Apps</string>
     <string name="prefs_settings_key_layout_type">List</string>
+    <string name="chooser_title">Make Calls with</string>
 
 </resources>

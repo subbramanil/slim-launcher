@@ -225,7 +225,11 @@ class MainFragment : Fragment() {
         ivCall.setOnClickListener {
             try {
                 val intent = Intent(Intent.ACTION_DIAL)
-                startActivity(intent)
+                val title = resources.getString(R.string.chooser_title)
+                val chooser = Intent.createChooser(intent, title)
+                if (intent.resolveActivity(activity!!.packageManager) != null) {
+                    startActivity(chooser)
+                }
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }

@@ -1,5 +1,7 @@
 # Slim Launcher [![CircleCI](https://circleci.com/gh/subbramanil/slim-launcher.svg?style=svg)](https://circleci.com/gh/subbramanil/slim-launcher)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=subbramanil_slim-launcher&metric=alert_status)](https://sonarcloud.io/dashboard?id=subbramanil_slim-launcher)
+
 Android minimalistic launcher
 
 The project got inspired by LessPhone [LessPhone](https://play.google.com/store/apps/details?id=me.aswinmohan.nophone) by Aswin Mohan
