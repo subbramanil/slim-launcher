@@ -40,17 +40,29 @@ class SettingsFragment : Fragment() {
                 }
             }
         })
+        setupHomeAppsList()
+        addButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_openAppsFragment))
+        setupThemeListener()
+        setupClockType()
+    }
+
+    private fun setupThemeListener() {
+        changeThemeText.setOnClickListener {
+            val themeChooserDialog = ThemeChooserDialog.getThemeChooser()
+            themeChooserDialog.showNow(fragmentManager, "THEME_CHOOSER")
+        }
+    }
+
+    private fun setupHomeAppsList() {
         var apps = viewModel.homeApps.value
         if (apps == null)
             apps = listOf()
         adapter = SettingsListAdapter(apps, InteractionHandler())
         settingsAppList.adapter = adapter
         settingsAppList.layoutManager = LinearLayoutManager(activity)
-        addButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_openAppsFragment))
-        changeThemeText.setOnClickListener {
-            val themeChooserDialog = ThemeChooserDialog.getThemeChooser()
-            themeChooserDialog.showNow(fragmentManager, "THEME_CHOOSER")
-        }
+    }
+
+    private fun setupClockType() {
         val settings = context!!.getSharedPreferences(getString(R.string.prefs_settings), MODE_PRIVATE)
         clockTypeChecker.isChecked = settings.getBoolean(getString(R.string.prefs_settings_key_clock_type), false)
         clockTypeChecker.setOnCheckedChangeListener { _, b ->
