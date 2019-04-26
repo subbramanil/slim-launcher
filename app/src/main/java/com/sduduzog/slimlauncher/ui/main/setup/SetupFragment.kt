@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.DialogFragment
@@ -101,35 +102,52 @@ class SetupFragment : Fragment(), DialogInteractionListener {
         cvIcon.alpha = 0f
     }
 
+    private fun setupAnimation(viewElement: View,
+                               startDelay: Long = 0,
+                               duration: Long = 1000) {
+        viewElement.animate()
+                .setStartDelay(startDelay)
+                .alpha(1f)
+                .duration = duration
+    }
+
+    private fun setButtonText(stringSrc: Int) {
+        setupButton.text = getString(stringSrc)
+    }
+
+    private fun setTickVisible(tickView: ImageView) {
+        tickView.visibility = View.VISIBLE
+    }
+
     private fun revealUI(level: Int) {
         progressBar.visibility = View.INVISIBLE
+        setButtonText(R.string.setup_button_next)
         when (level) {
-            0 -> {
-                tvWelcome.animate().alpha(1f).duration = 1000
-                cvIcon.animate().alpha(1f).duration = 1500
-                textViewLets.animate().alpha(1f).duration = 1000
-                opt1Text.animate().setStartDelay(1000).alpha(1f).duration = 500
-                opt1Number.animate().setStartDelay(1000).alpha(1f).duration = 500
-                opt2Text.animate().setStartDelay(1500).alpha(1f).duration = 500
-                opt2Number.animate().setStartDelay(1500).alpha(1f).duration = 500
-                opt3Number.animate().setStartDelay(2000).alpha(1f).duration = 500
-                opt3Text.animate().setStartDelay(2000).alpha(1f).duration = 500
-                setupButton.animate().setStartDelay(2500).alpha(1f).duration = 500
-            }
-            1 -> {
-                setupButton.text = getString(R.string.setup_button_next)
-                ivTick1.visibility = View.VISIBLE
-            }
-            2 -> {
-                ivTick2.visibility = View.VISIBLE
-                setupButton.text = getString(R.string.setup_button_next)
-            }
+            0 -> doStepZero()
+            1 -> setTickVisible(ivTick1)
+            2 -> setTickVisible(ivTick2)
             3 -> {
-                ivTick3.visibility = View.VISIBLE
-                setupButton.text = getString(R.string.setup_button_finish)
+                setButtonText(R.string.setup_button_finish)
+                setTickVisible(ivTick3)
             }
         }
         state++
+    }
+
+    private fun doStepZero() {
+        setupAnimation(tvWelcome)
+        setupAnimation(cvIcon, 1500)
+        setupAnimation(textViewLets)
+
+        setupAnimation(opt1Text, 1000, 500)
+        setupAnimation(opt1Number, 1000, 500)
+
+        setupAnimation(opt2Text, 1500, 500)
+        setupAnimation(opt2Number, 1500, 500)
+
+        setupAnimation(opt3Text, 2000, 500)
+        setupAnimation(opt3Number, 2000, 500)
+        setupAnimation(setupButton, 2000, 500)
     }
 
     private fun chooseApps() {
